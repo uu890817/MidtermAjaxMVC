@@ -73,7 +73,7 @@ public class AccountController {
 //	}
 	
 //	@PutMapping(path = "/accountManager")
-//	public List<AccountBean> updatAccountController() {
+//	public List<AccountBean> updatAccountController() {G
 //		
 //		return aService.update();	
 //	}
