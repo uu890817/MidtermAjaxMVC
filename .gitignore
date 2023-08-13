@@ -1,0 +1,70 @@
+# Eclipse
+.project
+.classpath
+.settings/
+.metadata/
+bin/
+
+# Hibernate
+target/
+*.log
+*.properties
+*.tmp
+*.tmp/
+*.index
+
+# Spring Boot
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE files
+.idea/
+.vscode/
+
+# Compiled files
+*.class
+
+# Logs and databases
+*.log
+*.sqlite
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# Gradle
+.gradle/
+build/
+
+# Application properties
+application.properties
+
+# Spring Boot devtools
+/.idea
+.springBeans
+
+# Testing
+test-output/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# else
+/build/
+/target/

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>登入測試</title>
+	<link rel="stylesheet" href="css/account/login.css">
+	<script>
+		function hidden1(e) {
+			console.log(e);
+			console.log("1");
+			document.getElementById("wrapid").style.visibility = "hidden";
+
+			let img = document.createElement("img");
+			img.src = "https://lh3.googleusercontent.com/a/AAcHTtfaaqz6yknSPtCdKldLKNQhLwAZEExEI2LMz_D7=s96-c";
+			document.body.appendChild(img);
+			console.log("2");
+		} 
+	</script>
+</head>
+
+<body style="background: url('images/background/loginBackground.png'); background-size: cover;">
+
+	<div class="wrap" id="wrapid">
+		<div class="loginBox">
+			<div style="margin: auto; text-align: center;">
+				<img src="images/logo/TutorLinkLogoBrown.svg" alt="" style="width: 50px;">
+				<div class="logo_text">TutorLink</div>
+			</div>
+			<span id="errorDiv" style="color:red; text-align: center; display:block;"> </span>
+			<form method="post" action="login">
+				<div style="margin: auto; text-align: center;">
+					<input class="input" id="username" type="text" name="username" placeholder=" 您的帳號"
+						autocomplete="off"> <input class="input" id="password" type="password" name="password"
+						placeholder=" 您的密碼" autocomplete="off"> <input class="loginBtn" id="loginBtn" type="button"
+						value="登入">
+
+
+					<script src=" https://accounts.google.com/gsi/client" async defer></script>
+					<div id="g_id_onload"
+						data-client_id="701818681384-trp26lacs2gdijg2uui97mkt4g3sfsdj.apps.googleusercontent.com"
+						data-context="signin" data-ux_mode="popup" data-auto_prompt="false" data-callback="onSignIn2">
+					</div>
+
+					<div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="filled_blue"
+						data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+
+					<p></p>
+					<input id="rememberMe" type="checkbox"> <label for="rememberMe"><span
+							class="text">記住我</span></label>
+					<div style="margin: 10px 0"></div>
+					<a href="#">忘記密碼?</a> <br />
+					<div style="margin: 10px 0"></div>
+					<span class="text">還沒有帳號嗎?</span> <a href="./Register.html">點我註冊</a>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<script src="js/account/login.js"></script>
+</body>
+
+</html>

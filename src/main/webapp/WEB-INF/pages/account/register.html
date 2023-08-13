@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>註冊新帳戶</title>
+    <link rel="stylesheet" href="../../style/account/Register.css">
+</head> 
+
+<body id="all">
+    <header class="header" id="navbar">
+        <nav class="nav_ac">
+            <!-- LOGO -->
+            <ul class="nav_logo">
+                <li class="logo" id="logo">
+                    <a href="#">
+                        <img src="../assets/logo/TutorLinkLogoBrown.svg" alt="" style="width: 50px;">
+                        <div class="logo_text">TutorLink</div>
+                    </a>
+                </li>
+                <li hidden="hidden"><a href="*">搜尋教師</a></li>
+                <li hidden="hidden"><a href="#">評分</a></li>
+            </ul>
+
+            <!-- 導覽列 --> 
+            <ul class="nav_UI">
+                <li hidden="hidden"><a href="*">成為老師</a></li>
+                <li hidden="hidden"><a href="#">?</a></li>
+                <li hidden="hidden"><a href="../html/Login.html">登入</a></li>
+                <li hidden="hidden"><a href="#">註冊</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div id="wrap">
+        <p id="title">註冊新會員</p>
+        <form id="regForm" method="post" action="../../Register">
+            <table class="Account">
+                <tr>
+                    <td><input type="text" id="userName" name="userName" class="AccountInput" placeholder="使用者名稱(最少六個字) "
+                            autocomplete="off">
+                        <p id="pUserName" hidden>使用者名稱不得為空</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="email" id="email" name="email" class="AccountInput" placeholder="電子信箱"
+                            autocomplete="off">
+                        <p id="pEmail" hidden>信箱不得為空</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="password" id="userPassword" name="userPassword" class="AccountInput"
+                            placeholder="密碼" autocomplete="off">
+                        <p id="pUserPassword" hidden>密碼不得為空</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><input type="password" id="userPasswordCheck" name="userPasswordCheck" class="AccountInput"
+                            placeholder="再次確認密碼" autocomplete="off">
+                        <p id="pUserPasswordCheck" hidden></p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><input type="button" id="nextbtn" name="nextbtn" class="AccountInput" id="next" value="下一步"
+                            onclick="toNext()"></td>
+                </tr>
+            </table>
+
+
+            <table id="UserInfo" class="UserInfo" hidden="true">
+                <tr>
+                    <td><input type="text" id="familyName" name="familyName" class="UserInfoInput" placeholder="姓"
+                            autocomplete="off">
+                        <p id="pFamilyName" hidden>姓氏不得為空</p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><input type="text" id="givenName" name="givenName" class="UserInfoInput" placeholder="名"
+                            autocomplete="off">
+                        <p id="pGivenName" hidden>名字不得為空</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #7b4a18;">名稱顯示方式
+                        <select name="nameViewType" class="UserInfoInput">
+                            <option name="nameViewType" value="1" style="color: #7b4a18;">姓+名</option>
+                            <option name="nameViewType" value="2" style="color: #7b4a18;">名+姓</option>
+                        </select>
+                        <p id="pNameViewType" hidden></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #7b4a18;">性別
+                        <select name="gender" class="UserInfoInput">
+                            <option name="gender" value="1" style="color: #7b4a18;">男</option>
+                            <option name="gender" value="2" style="color: #7b4a18;">女</option>
+                            <option name="gender" value="3" style="color: #7b4a18;">其他</option>
+                        </select>
+                        <p id="pGender" hidden></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="nationality" name="nationality" class="UserInfoInput" placeholder="國籍"
+                            autocomplete="off">
+                        <p id="pNationality" hidden>國家不得為空</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="color: #7b4a18;">生日<input type="date" id="birthday" name="birthday" class="UserInfoInput" placeholder="生日"
+                            autocomplete="off">
+                        <p id="pBirthday" hidden>生日不得為空</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="button" name="backbtn" class="UserInfoInput" id="back" value="上一步"
+                            onclick="toBack()">
+                        <input type="button" name="commitbtn" class="UserInfoInput" id="commit" value="確認送出"
+                            onclick="submitForm()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script src="../../js/account/Register.js"></script>
+    </div>
+</body>
+
+</html>

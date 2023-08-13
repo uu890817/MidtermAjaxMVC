@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+:root {
+    --assistanttr-color: #edede9;
+    --assistantse-color: #d6ccc2;
+    --assistantfi-color: #f5ebe0;
+    --deputy-color: #e3d5ca;
+    --main-color: #d5bdaf;
+}
+
+/* reset */
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #7b4a18;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+label,
+span,
+li {
+    color: #d4a373;
+}
+
+a {
+    text-decoration: none;
+}
+
+ol,
+ul {
+    padding-left: 0;
+}
+
+ol,
+ul,
+dl {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* 固定導覽列位置 */
+.header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.nav_ac {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+}
+
+#logo {
+    margin-left: 0;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+}
+
+.logo_text {
+    font-weight: 700;
+    color: #d4a373;
+    font-size: 26px;
+    margin-left: 5px;
+}
+
+.nav_logo li,
+.nav_UI li {
+    list-style: none;
+    margin-left: 25px;
+}
+
+.nav_logo,
+.nav_UI {
+    display: flex;
+    align-items: center;
+}
+
+/* 導覽列連結 */
+.nav_logo a,
+.nav_UI a,
+.logo a {
+    transition: .3s;
+    font-size: 18px;
+    color: #d4a373;
+}
+
+.nav_logo a:hover,
+.nav_UI a:hover,
+.logo a:hover {
+    color: #d6ccc2;
+}
+
+#navbar {
+    background-color: #d4a37316;
+    transition: background-color 0.3s ease;
+}
+
+#navbar.scrolled {
+    background-color: #d5bdaf;
+}
+
+
+/* ----------------------------------------------------------------------- */
+
+
+#wrap {
+    margin: 100px;
+
+}
+
+#title {
+    margin-bottom: 60px;
+    text-align: center;
+    font-size: 36px;
+    color: #7b4a18;
+}
+
+.Account {
+    margin: auto;
+}
+
+
+.AccountInput {
+    margin: 20px 0;
+    padding: 5px;
+    height: 50px;
+    border: 2px solid #7b4a18;
+    border-radius: 10px 10px;
+    color: rgb(78, 78, 78);
+    font-size: 24px
+}
+
+
+#next {
+    margin-left: 210px;
+
+}
+
+
+.UserInfo {
+    margin: auto;
+}
+
+
+.UserInfoInput {
+    margin: 20px 0;
+    padding: 5px;
+    height: 50px;
+    border: 2px solid #7b4a18;
+    border-radius: 10px 10px;
+    color: rgb(78, 78, 78);
+    font-size: 24px
+}
+
+#commit {
+    margin-right: 50px;
+}

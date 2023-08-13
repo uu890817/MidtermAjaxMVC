@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+body {
+	background-color: rgb(249, 251, 253);
+}
+ 
+.navTutor>ul>li>a,
+.navTutor>ul>li button { 
+	text-decoration: none;
+	color: gray;
+	transition: .5s;
+}
+
+.navTutor>ul>li>a:hover,
+.navTutor>ul>li>a:focus,
+.navTutor>ul>li button:hover,
+.navTutor>ul>li button:focus {
+	color: black;
+}
+
+.navTutor {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 13%;
+	background-color: #fff;
+	height: 100vh;
+	justify-items: center;
+	align-items: center;
+	box-shadow: 0 0 10px 15px #f5f3f4;
+}
+
+.main {
+	display: flex;
+	margin-left: 30%;
+	width: 87%;
+	background-color: rgb(249, 251, 253);
+	height: 100%;
+	padding: 0 50px;
+}
+
+.navTutor>ul>li {
+	text-decoration: none;
+	color: gray;
+	padding: 10px;
+	padding-left: 30px;
+}
+
+.iconCard {
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	margin: 20px 0;
+}
+
+.iconImg {
+	margin: 0 auto;
+	width: 40%;
+}
+
+.container {
+	margin-left: 10%;
+	margin-left:13%;
+	width: 87%;
+	background-color: rgb(249, 251, 253);
+	height: 100vh;
+	padding: 0 50px;
+}
+
+.container h2 {
+	
+	border-bottom: 1px solid #edede9;
+	padding: 30px 0;
+}
+
+.favorite {
+	width: 70%;
+	margin: 0 auto;
+}
+
+.favoriteTable {
+	margin-top: 40px;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 0 5px 1px #f5f3f4;
+	padding: 5px 0;
+}
+
+.favoriteTableHeader {
+	padding: 15px 25px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.tableHead {
+	background-color: rgb(249, 251, 253);
+}
+
+th,
+td {
+	padding: 15px 25px;
+	text-align: center;
+}
+
+tr {
+	border-top: 1px solid #edede9;
+}
+
+th:first-child,
+td:first-child {
+	text-align: left
+}
+
+.closeBtn {
+	width: 25%;
+	background-color: #f5cac3;
+}
+
+.submitBtn {
+	width: 25%;
+	background: #84a98c;
+}
+
+.btnItem {
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+}
+
+.add-button {
+	position: fixed;
+	bottom: 30px;
+	right: 30px;
+}
+
+.btn-circle {
+	width: 75px;
+	height: 75px;
+	border-radius: 50%;
+	background-color: #d6ccc2;
+	color: #fff;
+	font-size: 36px;
+	border: none;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
+}
+
+.btn-circle:focus {
+	outline: none;
+}
