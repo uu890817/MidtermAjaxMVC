@@ -1,77 +1,96 @@
-function deleteCheck(id, deleteName) {
-    const inputText = document.getElementById("deleteUserId");
-    const _deleteName = document.getElementById("_deleteName");
-    inputText.value = id;
-    _deleteName.innerHTML = deleteName;
-} 
-
-function turnSetting(id) {  
-    console.log("pon")
-    document.getElementById(id).src = '/Midterm/assets/icon/settingTurn.svg'
-} 
-function turnBackSetting(id) {  
-    console.log("pon")
-    document.getElementById(id).src = '/Midterm/assets/icon/setting.svg'
-} 
- 
-function moveToPopup(userId, userName, userPassword, familyName, givenName, nameViewType, email, gender, nationality, birthday, isAdmin, isTeacher, tutorCoin, accountCreatDate) {
-
-    const _userId = document.getElementById("_UserId");
-    const _UserName = document.getElementById("_UserName");
-    const _UserPassword = document.getElementById("_UserPassword");
-    const _FamilyName = document.getElementById("_FamilyName");
-    const _GivenName = document.getElementById("_GivenName");
-    const _NameViewType = document.getElementById("_NameViewType");
-    const _Email = document.getElementById("_Email");
-    const _Gender = document.getElementById("_Gender");
-    const _Nationality = document.getElementById("_Nationality");
-    const _Birthday = document.getElementById("_Birthday");
-    const _TutorCoin = document.getElementById("_TutorCoin");
-    const _isAdmin = document.getElementById("_isAdmin");
-    const _isTeacher = document.getElementById("_isTeacher");
-    const _AccountCreatDate = document.getElementById("_AccountCreatDate");
+const tBody = document.getElementById('tableBody');
 
 
-    _userId.value = userId;
-    _UserName.value = userName;
-    _UserPassword.value = userPassword;
-    _FamilyName.value = familyName;
-    _GivenName.value = givenName;
-    _NameViewType.value = nameViewType;
-    _Email.value = email;
-    _Gender.value = gender;
-    _Nationality.value = nationality;
-    _Birthday.value = birthday;
+window.onload = () => {
+    var xh = new XMLHttpRequest();
 
-    if (isAdmin === "true") {
-        _isAdmin.value = "1"
-    } else {
-        _isAdmin.value = "2"
+    xh.open('get', 'accountManager');
+    xh.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xh.send();
+
+    xh.onload = function () {
+        console.log(xh.status);
+        console.log(xh.responseText);
+
+        if ((xh.status) == 200) {
+            console.info(xh.responseText);
+            console.log((xh.responseText).length)
+        }
+
+        const jsonData = JSON.parse(xh.responseText);
+
+        for (let i = 0; i < jsonData.length; i++) {
+            let tr = document.createElement('tr');
+
+            let id = document.createElement('td');
+            id.innerText = jsonData[i].userId;
+            let username = document.createElement('td');
+            username.innerText = jsonData[i].userName;
+            let email = document.createElement('td');
+            email.innerText = jsonData[i].email;
+
+            let isAdmin = document.createElement('td');
+            let isAdminImg = document.createElement('img');
+            if (jsonData[i].admin) {
+                isAdminImg.src = 'images/icon/greenCheckmark.svg';
+                isAdminImg.width = '16';
+            } else {
+                isAdminImg.src = 'images/icon/redCross.svg';
+                isAdminImg.width = '16';
+            }
+            isAdmin.appendChild(isAdminImg);
+
+
+            let isTeacher = document.createElement('td');
+            let isTeacherImg = document.createElement('img');
+            if (jsonData[i].teacher) {
+                isTeacherImg.src = 'images/icon/greenCheckmark.svg';
+                isTeacherImg.width = '16';
+            } else {
+                isTeacherImg.src = 'images/icon/redCross.svg';
+                isTeacherImg.width = '16';
+            }
+            isTeacher.appendChild(isTeacherImg);
+
+            let coin = document.createElement('td');
+            coin.innerText = jsonData[i].tutorCoin;
+            let editIcon = document.createElement('td');
+
+            let editImg = document.createElement('img');
+            editImg.src = 'images/icon/setting.svg'
+            editImg.width = 16;
+            editIcon.appendChild(editImg);
+
+            let deleteIcon = document.createElement('td');
+            let deleteImg = document.createElement('img');
+            deleteImg.src = 'images/icon/DeleteButton.svg'
+            deleteImg.width = 16;
+            deleteIcon.appendChild(deleteImg);
+
+            tr.appendChild(id);
+            tr.appendChild(username);
+            tr.appendChild(email);
+            tr.appendChild(isAdmin);
+            tr.appendChild(isTeacher);
+            tr.appendChild(coin);
+            tr.appendChild(editIcon);
+            tr.appendChild(deleteIcon);
+
+
+            tr.addEventListener('mouseover', () => {
+                tr.style.backgroundColor = "#6c757d";
+            })
+            tr.addEventListener('mouseout', () => {
+                tr.style.backgroundColor = "#FFF";
+            })
+
+            tBody.appendChild(tr);
+
+        } 
+
     }
 
-    if (isTeacher === "true") {
-        _isTeacher.value = "1"
-    } else {
-        _isTeacher.value = "2"
-    }
-
-    _TutorCoin.value = tutorCoin;
-    _AccountCreatDate.value = accountCreatDate;
-
 }
-
-function changeColorIn(id) {
-
-    const tr = document.getElementById(id);
-    tr.style.backgroundColor = "#cad5de";
-}
-
-function changeColorOut(id) {
-
-    const tr = document.getElementById(id);
-    tr.style.backgroundColor = "#fff";
-}
-
 
 
 

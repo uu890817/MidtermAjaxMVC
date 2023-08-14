@@ -19,69 +19,86 @@ public class AccountController {
 
 	@Autowired
 	private AccountService aService;
-	
+
 	@GetMapping(path = "/login")
 	public String loginPageController(HttpSession session) {
-		
+
 		AccountBean sessionBean = (AccountBean) session.getAttribute("loginUser");
-		if(sessionBean != null) {
+		if (sessionBean != null) {
 			return "redirect:/loginPage";
 		}
 		return "account/login";
 	}
 	
+	@GetMapping(path = "/register")
+	public String registerController(HttpSession session) {
+
+		AccountBean sessionBean = (AccountBean) session.getAttribute("loginUser");
+		if (sessionBean != null) {
+			return "redirect:/loginPage";
+		}
+		return "account/register";
+	}
+
+	@GetMapping(path = "/logout")
+	public String logoutController(HttpSession session) {
+
+		session.invalidate();
+		return "redirect:/login";
+
+	}
+
 	@PostMapping(path = "/login")
 	@ResponseBody
-	public String loginActionController(@RequestParam String username,
-										@RequestParam String password,
-										HttpSession session) {
-		
+	public String loginActionController(@RequestParam String username, @RequestParam String password,
+			HttpSession session) {
+
 		AccountBean account = aService.checkLogin(new AccountBean(username, password));
-		
-		if(account != null) {
+
+		if (account != null) {
 			session.setAttribute("loginUser", account);
 			return "OK";
 		}
-		return "Error";	
+		return "Error";
 	}
-	
+
 	@GetMapping(path = "/loginPage")
 	public String loginChangePageController(HttpSession session) {
 		AccountBean sessionBean = (AccountBean) session.getAttribute("loginUser");
-		
+
 		System.out.println(sessionBean == null);
-		if(sessionBean == null) {
+		if (sessionBean == null) {
 			return "redirect:/login";
 		}
-		
-		if(sessionBean.isAdmin()) {
+
+		if (sessionBean.isAdmin()) {
 			return "account/accountManager";
 		}
 		return "account/userPage";
 	}
-	
+
 	@GetMapping(path = "/accountManager")
 	@ResponseBody
 	public List<AccountBean> getAllAccountController() {
-		return aService.findAll();	
+		return aService.findAll();
 	}
-	
+
 //	@PutMapping(path = "/accountManager")
 //	public List<AccountBean> registerController() {
 //		
 //		return aService.insert();	
 //	}
-	
+
 //	@PutMapping(path = "/accountManager")
 //	public List<AccountBean> updatAccountController() {G
 //		
 //		return aService.update();	
 //	}
-	
+
 	@DeleteMapping(path = "/accountManager")
 	@ResponseBody
 	public String deleteAccountByIdController(@RequestParam int id) {
-		boolean isDelete = aService.deleteById(id);	
+		boolean isDelete = aService.deleteById(id);
 		return Boolean.toString(isDelete);
 	}
 }
