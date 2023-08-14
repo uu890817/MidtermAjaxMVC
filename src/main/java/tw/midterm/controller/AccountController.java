@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ public class AccountController {
 	@Autowired
 	private AccountService aService;
 
+	
 	@GetMapping(path = "/login")
 	public String loginPageController(HttpSession session) {
 
@@ -41,7 +43,7 @@ public class AccountController {
 		}
 		return "account/register";
 	}
-	
+
 	@GetMapping(path = "/registerOK")
 	public String registerOKController(HttpSession session) {
 
@@ -51,6 +53,7 @@ public class AccountController {
 		}
 		return "account/registerOK";
 	}
+
 	@GetMapping(path = "/logout")
 	public String logoutController(HttpSession session) {
 
@@ -90,8 +93,15 @@ public class AccountController {
 
 	@GetMapping(path = "/accountManager")
 	@ResponseBody
-	public List<AccountBean> getAllAccountController() {
-		return aService.findAll();
+	public List<AccountBean> getAllAccountController(HttpSession session) {
+		AccountBean sessionBean = (AccountBean) session.getAttribute("loginUser");
+		if (sessionBean == null) {
+			return null;
+		}
+		if(sessionBean.isAdmin()) {
+			return aService.findAll();
+		 }
+		return null;
 	}
 
 	@PutMapping(path = "/accountManager")
@@ -109,9 +119,9 @@ public class AccountController {
 //		return aService.update();	
 //	}
 
-	@DeleteMapping(path = "/accountManager")
+	@DeleteMapping(path = "/accountManager/{id}")
 	@ResponseBody
-	public String deleteAccountByIdController(@RequestParam int id) {
+	public String deleteAccountByIdController(@PathVariable int id) {
 		boolean isDelete = aService.deleteById(id);
 		return Boolean.toString(isDelete);
 	}

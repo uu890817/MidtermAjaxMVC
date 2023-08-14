@@ -60,7 +60,7 @@ public class WebAppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addRedirectViewController("/", "membersmain.controller");
+		registry.addRedirectViewController("/", "login");
 		registry.addViewController("/happyday.action").setViewName("form");
 	}
 
