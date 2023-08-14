@@ -17,7 +17,7 @@ function toNext() {
         text += pUserPassword.innerHTML;
         text += "\n";
     }
-    if (text !== "") { 
+    if (text !== "") {
         alert(text);
         return;
     }
@@ -64,8 +64,50 @@ function submitForm() {
         return;
     }
 
-    var form = document.getElementById('regForm');
-    form.submit();
+    const userName = document.querySelector('#userName');
+    const email = document.querySelector('#email');
+    const password = document.querySelector('#userPassword');
+    const familyName = document.querySelector('#familyName');
+    const givenName = document.querySelector('#givenName');
+    const nameViewType = document.querySelector('#nameViewType');
+    const gender = document.querySelector('#gender');
+    const nationality = document.querySelector('#nationality');
+    const birthday = document.querySelector('#birthday');
+
+    const jsonData = {
+        "userName": userName.value,
+        "password": password.value,
+        "familyName": familyName.value,
+        "givenName": givenName.value,
+        "nameViewType": parseInt(nameViewType.value),
+        "email": email.value,
+        "gender": parseInt(gender.value),
+        "nationality": nationality.value,
+        "birthday": new Date(birthday.value).getTime(),
+        "tutorCoin": 0.00,
+        "accountCreatDate": new Date().getTime(),
+        "admin": false,
+        "teacher": false
+    }
+    console.log(jsonData);
+    var xh = new XMLHttpRequest();
+
+    xh.open('put', 'accountManager');
+    xh.setRequestHeader('Content-type', 'application/json');
+    xh.send(JSON.stringify(jsonData));
+
+    xh.onload = function () {
+        console.log(xh.status);
+        console.log(xh.responseText);
+        
+        if(xh.responseText == 'OK'){
+			location.replace('registerOK')
+		}
+        
+        
+        
+    }
+
 }
 
 

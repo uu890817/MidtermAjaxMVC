@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,7 +31,7 @@ public class AccountController {
 		}
 		return "account/login";
 	}
-	
+
 	@GetMapping(path = "/register")
 	public String registerController(HttpSession session) {
 
@@ -39,7 +41,16 @@ public class AccountController {
 		}
 		return "account/register";
 	}
+	
+	@GetMapping(path = "/registerOK")
+	public String registerOKController(HttpSession session) {
 
+		AccountBean sessionBean = (AccountBean) session.getAttribute("loginUser");
+		if (sessionBean != null) {
+			return "account/registerOK";
+		}
+		return "account/registerOK";
+	}
 	@GetMapping(path = "/logout")
 	public String logoutController(HttpSession session) {
 
@@ -83,11 +94,14 @@ public class AccountController {
 		return aService.findAll();
 	}
 
-//	@PutMapping(path = "/accountManager")
-//	public List<AccountBean> registerController() {
-//		
-//		return aService.insert();	
-//	}
+	@PutMapping(path = "/accountManager")
+	@ResponseBody
+	public String registerController(@RequestBody AccountBean aBean) {
+		aBean.setAdmin(false);
+		aBean.setTeacher(false);
+		aService.insert(aBean);
+		return "OK";
+	}
 
 //	@PutMapping(path = "/accountManager")
 //	public List<AccountBean> updatAccountController() {G

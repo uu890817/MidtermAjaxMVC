@@ -68,6 +68,25 @@ public class AccountBean {
 		this.birthday = birthday;
 	}
 
+	public AccountBean(int userId, String userName, String password, String familyName, String givenName,
+			int nameViewType, String email, int gender, String nationality, Date birthday, boolean isTeacher,
+			boolean isAdmin, BigDecimal tutorCoin, Date accountCreatDate) {
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.familyName = familyName;
+		this.givenName = givenName;
+		this.nameViewType = nameViewType;
+		this.email = email;
+		this.gender = gender;
+		this.nationality = nationality;
+		this.birthday = birthday;
+		this.isTeacher = isTeacher;
+		this.isAdmin = isAdmin;
+		this.tutorCoin = tutorCoin;
+		this.accountCreatDate = accountCreatDate;
+	}
+
 	public int getUserId() {
 		return userId;
 	}
