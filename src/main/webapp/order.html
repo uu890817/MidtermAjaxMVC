@@ -271,22 +271,27 @@
                     <div class="favoriteTableHeader">
                         <h3>訂單列表</h3>
                     </div>
+
                     <div class="favoriteTableHeader" style="display: flex; justify-content: space-between;">
-                        <button type="submit" class="btn" id="SelectAllBtn">顯示全部訂單</button>
-                        <p style="margin: 10px">輸入訂單編號 :
+                        <div>輸入訂單編號 :
                             <input type="text" id="findorderListID"
                                 style="margin: 10px; padding: 7px; font-size: 16px; font-weight: bold;" />
                             <button type="submit" class="search" id="SelectIdbtn">
-                                <img alt="" src="WEB-INF/resources/images/icon/imgOrder/magnifier.png"
+                                <img alt="" src="images/icon/imgOrder/magnifier.png"
                                     style="width: 20px; height: 20px;">
                             </button>
-                        <div>
-                            <button onclick="showModal3()" style="border: none; background-color: transparent">
-                                <img alt="" src="WEB-INF/resources/images/icon/imgOrder/add.png"
-                                    style="width: 40px; height: 40px; margin-top: 50px">
-                            </button>
+                            <br>
                         </div>
+                        <div class="favoriteTableHeader" style="display: flex; justify-content: space-between;">
+                            <button type="submit" class="btn" id="SelectAllBtn"
+                                style="border: 1px solid black;">顯示全部訂單</button>
+                        </div>
+                        <button onclick="showModal3()" style="border: none; background-color: transparent">
+                            <img alt="" src="images/icon/imgOrder/add.png"
+                                style="width: 40px; height: 40px;">
+                        </button>
                     </div>
+
                     <div class="favoriteTableCon">
                         <table>
                             <thead>
@@ -425,11 +430,11 @@
                                 <td>${data[i].totalPrice}</td>
                                 <td>${data[i].orderListState}</td>
                                 <td><button onclick="showModal(); openUpdateListID('${data[i].orderListID}');openUpdateFormID('${data[i].orderFormID}');openUpdateClassID('${data[i].classID}');openUpdatePrice('${data[i].totalPrice}')" style="border: none">
-										<img src="WEB-INF/resources/images/icon/imgOrder/checklist.png" style="width: 20px; height: 20px;">
+										<img src="images/icon/imgOrder/checklist.png" style="width: 20px; height: 20px;">
 									</button>
                                 </td>
 								<td><button onclick="showModal2(); openDeletePopup('${data[i].orderListID}')" style="border: none">
-										<img src="WEB-INF/resources/images/icon/imgOrder/delete.png" style="width: 20px; height: 20px;">
+										<img src="images/icon/imgOrder/delete.png" style="width: 20px; height: 20px;">
 									</button>
                                 </td>
                                 </tr>`
@@ -480,11 +485,11 @@
                                 <td>${data.totalPrice}</td>
                                 <td>${data.orderListState}</td>
                                 <td><button onclick="showModal(); openUpdateListID('${data.orderListID}');openUpdateFormID('${data.orderFormID}');openUpdateClassID('${data.classID}');openUpdatePrice('${data.totalPrice}')" style="border: none">
-										<img src="resources/images/icon/imgOrder/checklist.png" style="width: 20px; height: 20px;">
+										<img src="images/icon/imgOrder/checklist.png" style="width: 20px; height: 20px;">
 									</button>
                                 </td>
 								<td><button onclick="showModal2(); openDeletePopup('${data.orderListID}')" style="border: none">
-										<img src="resources/images/icon/imgOrder/delete.png" style="width: 20px; height: 20px;">
+										<img src="images/icon/imgOrder/delete.png" style="width: 20px; height: 20px;">
 									</button>
                                 </td>
                                 </tr>`
@@ -525,7 +530,7 @@
                     url: 'order/insert2',
                     contentType: 'application/json',
                     data: JSON.stringify(obj),
-                    success: setTimeout(findAll(), 1000)
+                    success: window.location.href = 'http://localhost:8080/MidtermAjaxMVC/order.html',
                 })
                 console.log(obj)
             })
@@ -537,7 +542,7 @@
                 $.ajax({
                     type: 'delete',
                     url: 'order/' + deleteId,
-                    success: setTimeout(findAll(), 1000)
+                    success: window.location.href = 'http://localhost:8080/MidtermAjaxMVC/order.html',
                 })
             })
 
@@ -565,7 +570,7 @@
                     type: 'put',
                     // url: 'order/' + updateId + '?orderliststate=' + updateState,
                     url: 'order/' + updateId + '?orderformid=' + updateFormId + '&classid=' + updateClassId + '&totalprice=' + updatePrice + '&orderliststate=' + updateState,
-                    success: setTimeout(findAll(), 1000)
+                    success: window.location.href = 'http://localhost:8080/MidtermAjaxMVC/order.html',
                 })
             })
         })
