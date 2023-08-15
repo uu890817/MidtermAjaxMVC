@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            background-color: rgb(249, 251, 253);
+        }
+
+        .navTutor>ul>li>a,
+        .navTutor>ul>li button {
+            text-decoration: none;
+            color: gray;
+            transition: .5s;
+        }
+
+        .navTutor>ul>li>a:hover,
+        .navTutor>ul>li>a:focus,
+        .navTutor>ul>li button:hover,
+        .navTutor>ul>li button:focus {
+            color: black;
+        }
+
+        .navTutor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 13%;
+            background-color: #fff;
+            height: 100vh;
+            justify-items: center;
+            align-items: center;
+            box-shadow: 0 0 10px 15px #f5f3f4;
+        }
+
+        .main {
+            display: flex;
+            margin-left: 13%;
+            width: 87%;
+            background-color: rgb(249, 251, 253);
+            padding: 0 50px;
+        }
+
+        .navTutor>ul>li {
+            text-decoration: none;
+            color: gray;
+            padding: 10px;
+            padding-left: 30px;
+        }
+
+        .iconCard {
+            display: flex;
+            justify-items: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .iconImg {
+            margin: 0 auto;
+            width: 40%;
+        }
+
+        .container {
+            width: 87%;
+            background-color: rgb(249, 251, 253);
+            padding: 0 50px;
+        }
+
+        .container h2 {
+            border-bottom: 1px solid #edede9;
+            padding: 30px 0;
+        }
+
+        .favorite {
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        .favoriteTable {
+            display: block;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 5px 1px #f5f3f4;
+            padding: 5px 0;
+        }
+
+        .favoriteSearch {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .favoriteSearch input,
+        .favoriteSearch button {
+            margin-right: 5px;
+            max-height: 40px;
+        }
+
+        .selectId {
+            display: flex;
+        }
+
+        .favoriteSearch form {
+            margin-left: 10px;
+        }
+
+        .favoriteTableHeader {
+            display: flex;
+            padding: 15px 25px;
+            justify-content: space-between;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .tableHead {
+            background-color: rgb(249, 251, 253);
+        }
+
+        th,
+        td {
+            padding: 15px 25px;
+            text-align: center;
+        }
+
+        tr {
+            border-top: 1px solid #edede9;
+        }
+
+        th:first-child,
+        td:first-child {
+            text-align: left
+        }
+
+        .closeBtn {
+            width: 25%;
+            background-color: #f07167;
+            color: #fff;
+        }
+
+        .closeBtn:hover {
+            background-color: #e63946;
+            color: #fff;
+        }
+
+        .submitBtn {
+            width: 25%;
+            background: #84a98c;
+            color: #fff;
+        }
+
+        .submitBtn:hover {
+            background-color: #52796f;
+            color: #fff;
+        }
+
+        .btnItem {
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+        }
+
+        .addButton {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+        }
+
+        .btnCircle {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background-color: #d6ccc2;
+            color: #fff;
+            font-size: 36px;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .btnCircle:hover {
+            background-color: #c9ada7;
+        }
+
+        .btnCircle:focus {
+            outline: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <title>收藏管理</title>
+</head>
+
+<body>
+    <div class="navTutor">
+        <div class="iconCard">
+            <div class="iconImg">
+                <img src="https://raw.githubusercontent.com/uu890817/TutorLink/e85cd3edeba7a6198276171af9e994154cb89ba0/assets/images/logo/TutorLinkLogo.svg"
+                    alt="">
+            </div>
+        </div>
+        <ul>
+            <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-person" viewBox="0 0 16 16">
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                    </svg> 使用者管理</a></li>
+            <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-journals" viewBox="0 0 16 16">
+                        <path
+                            d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z" />
+                        <path
+                            d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0z" />
+                    </svg> 課程管理</a></li>
+            <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-file-earmark-text" viewBox="0 0 16 16">
+                        <path
+                            d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
+                        <path
+                            d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                    </svg> 訂單管理</a></li>
+            <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-emoji-frown" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                            d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z" />
+                    </svg> 檢舉案件管理</a></li>
+            <li><a href="#" style="color: #212529;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                        <path
+                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                    </svg> 收藏管理</a></li>
+            <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-star" viewBox="0 0 16 16">
+                        <path
+                            d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z" />
+                    </svg> 評分管理</a></li>
+        </ul>
+    </div>
+    <div class="main">
+
+        <div class="container">
+            <div class="favorite">
+                <h2>收藏管理</h2>
+                <div class="favoriteTable">
+                    <div class="favoriteTableHeader">
+                        <h3>收藏列表</h3>
+                        <div class="favoriteSearch">
+                            <div>
+                                <div class="selectId">
+                                    <input type="text" class="form-control" id="selectById" name="userid"
+                                        placeholder="使用者查詢">
+                                    <button type="submit" class="btn" id="selectByIdBtn"><img src="images/search.svg"
+                                            alt="" width="15px"></button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn" id="SelectAllFavoriteBtn">顯示全部</button>
+                        </div>
+                    </div>
+                    <div class="favoriteTableCon">
+                        <table>
+                            <thead>
+                                <tr class="tableHead">
+                                    <th>使用者</th>
+                                    <th>收藏課程</th>
+                                    <th>課程價格</th>
+                                    <th>收藏時間</th>
+                                    <th>修改</th>
+                                    <th>刪除</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableList"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 刪除視窗 -->
+    <div class="modal fade" id="deleteModat" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">刪除確認</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        確定要刪除該筆收藏資料？
+                    </div>
+                    <input type="text" class="form-control" id="deleteFavoritelistid" name="favoritelistid"
+                        hidden="hidden">
+                    <div class="modal-footer btnItem">
+                        <button type="submit" class="btn btn-danger" id="deletOk">確定</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- 彈出更新視窗內容 -->
+    <div class="modal fade" id="updateModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="updateFavoriteList" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="updateFavoriteList">修改收藏</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="favoritelistid" name="favoritelistid"
+                                hidden="hidden"> <label for="accountId" class="col-form-label">使用者ID</label>
+                            <input type="text" class="form-control" id="accountId" name="userid" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="favoriteClass" class="col-form-label">收藏課程</label> <input type="text"
+                                class="form-control" id="classID" name="classid" hidden="hidden"> <input type="text"
+                                class="form-control" id="favoriteClass" name="classname" hidden="hidden"> <select
+                                class="form-control" id="classChange">
+                                <option value="">請選擇</option>
+                                <option value="國小英文">國小英文</option>
+                                <option value="國小國語">國小國語</option>
+                                <option value="國中物理">國中物理</option>
+                                <option value="高中數學">高中數學</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="classPrice" class="col-form-label">課程價格</label> <input type="text"
+                                class="form-control" id="classPrice" name="classprice">
+                        </div>
+                        <div class="mb-3">
+                            <label for="favoriteDate" class="col-form-label">收藏日期</label> <input type="text"
+                                class="form-control" id="favoriteDate" name="favoritedate">
+                        </div>
+                        <div class="modal-footer btnItem">
+                            <button type="submit" class="btn submitBtn" id="updateBtn">送出</button>
+                            <button type="button" class="btn closeBtn" data-bs-dismiss="modal">關閉</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- 新增按鈕 -->
+    <div class="addButton">
+        <button class="btnCircle" data-bs-toggle="modal" data-bs-target="#insertModal">+</button>
+    </div>
+    <!-- 彈出新增視窗內容 -->
+    <div class="modal fade" id="insertModal" data-bs-backdrop="static" tabindex="-1"
+        aria-labelledby="insertFavoriteList" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="insertFavoriteList">新增收藏</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="insertAccountId" class="col-form-label">使用者</label>
+                            <input type="text" class="form-control" id="insertAccountId" name="userid">
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="insertClassID" name="classid" hidden="hidden">
+                            <label for="favoriteClass" class="col-form-label">收藏課程</label> <input type="text"
+                                class="form-control" id="insertFavoriteClass" name="classname" hidden="hidden">
+                            <select class="form-control" id="insertClassChange">
+                                <option value="">請選擇</option>
+                                <option value="國小英文">國小英文</option>
+                                <option value="國小國語">國小國語</option>
+                                <option value="國中物理">國中物理</option>
+                                <option value="高中數學">高中數學</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="classPrice" class="col-form-label">課程價格</label> <input type="text"
+                                class="form-control" id="insertClassPrice" name="classprice">
+                        </div>
+                        <div class="mb-3">
+                            <label for="favoriteDate" class="col-form-label">收藏日期</label> <input type="text"
+                                class="form-control" id="insertFavoriteDate" name="favoritedate">
+                        </div>
+                        <div class="modal-footer btnItem">
+                            <button type="submit" class="btn submitBtn" id="insertBtn">送出</button>
+                            <button type="button" class="btn closeBtn" data-bs-dismiss="modal">關閉</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
+        integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+        crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            init()
+            function init() {
+                let str = ''
+                $.ajax({
+                    type: 'get',
+                    url: 'favorite',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        for (let i = 0; i < data.length; i++) {
+                            str += `<tr>
+                                        <td>${data[i].userid}</td>
+                                        <td>${data[i].classname}</td>
+                                        <td>${data[i].classprice}</td>
+                                        <td>${data[i].favoritedate}</td>
+                                        <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#updateModal"><img src="images/pencil-square.svg"
+                                                    alt="" onclick="updateValue(${data[i].favoritelistid},${data[i].userid}, ${data[i].classid}, '${data[i].classname}',
+                                                    ${data[i].classprice}, '${data[i].favoritedate}')"></a>
+                                        </td>
+                                        <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModat"><img src="images/x-lg.svg" alt="" onclick="deleteAlert(${data[i].favoritelistid})"></a>
+                                        </td>
+                                    </tr>`
+                        }
+                        $("#tableList").html(str)
+                    }
+                });
+            }
+
+            $('#SelectAllFavoriteBtn').click(function () {
+                let str = ''
+                $.ajax({
+                    type: 'get',
+                    url: 'favorite',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        for (let i = 0; i < data.length; i++) {
+                            console.log(data);
+                            str += `<tr>
+                                        <td>${data[i].userid}</td>
+                                        <td>${data[i].classname}</td>
+                                        <td>${data[i].classprice}</td>
+                                        <td>${data[i].favoritedate}</td>
+                                        <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#updateModal"><img src="images/pencil-square.svg"
+                                                    alt="" onclick="updateValue(${data[i].favoritelistid},${data[i].userid}, ${data[i].classid}, '${data[i].classname}',
+                                                    ${data[i].classprice}, '${data[i].favoritedate}')"></a>
+                                        </td>
+                                        <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModat"><img src="images/x-lg.svg" alt="" onclick="deleteAlert(${data[i].favoritelistid})"></a>
+                                        </td>
+                                    </tr>`
+                        }
+                        $("#tableList").html(str)
+                    }
+                });
+            });
+            $('#selectByIdBtn').click(function () {
+                let selectReult = $('#selectById').val();
+                let str = ''
+                $.ajax({
+                    type: 'get',
+                    url: 'favorite/' + selectReult,
+                    contentType: 'application/json',
+                    success: function (data) {
+                        for (let i = 0; i < data.length; i++) {
+                            str += `<tr>
+                                        <td>${data[i].userid}</td>
+                                        <td>${data[i].classname}</td>
+                                        <td>${data[i].classprice}</td>
+                                        <td>${data[i].favoritedate}</td>
+                                        <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#updateModal"><img src="images/pencil-square.svg"
+                                                    alt="" onclick="updateValue(${data[i].favoritelistid},${data[i].userid}, ${data[i].classid}, '${data[i].classname}',
+                                                    ${data[i].classprice}, '${data[i].favoritedate}')"></a>
+                                        </td>
+                                        <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModat"><img src="images/x-lg.svg" alt="" onclick="deleteAlert(${data[i].favoritelistid})"></a>
+                                        </td>
+                                    </tr>`
+                        }
+                        $("#tableList").html(str)
+                    }
+                });
+            });
+
+
+            $('#deletOk').click(function () {
+                let deleteReult = $('#deleteFavoritelistid').val();
+                $.ajax({
+                    type: 'delete',
+                    url: 'favorite/' + deleteReult,
+                    contentType: 'application/json',
+                    success: function (data) {
+                        setTimeout(init(), 1000);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+
+
+            $('#insertBtn').click(function () {
+                let insertAccountId = $('#insertAccountId').val();
+                let insertClassID = $('#insertClassID').val();
+                let insertFavoriteClass = $('#insertFavoriteClass').val();
+                let insertClassPrice = $('#insertClassPrice').val();
+                let insertFavoriteDate = $('#insertFavoriteDate').val();
+                let obj = {
+                    "userid": insertAccountId,
+                    "classid": insertClassID,
+                    "favoritedate": insertFavoriteDate,
+                    "classname": insertFavoriteClass,
+                    "classprice": insertClassPrice
+                }
+                console.log(obj);
+                $.ajax({
+                    type: 'post',
+                    url: 'favorite',
+                    contentType: 'application/json',
+                    data: JSON.stringify(obj),
+                    success: function (data) {
+                        setTimeout(init(), 1000);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+
+            $('#updateBtn').click(function () {
+                let favoritelistid = $('#favoritelistid').val();
+                let accountId = $('#accountId').val();
+                let classid = $('#classID').val();
+                let classPrice = $('#classPrice').val();
+                let favoriteDate = $('#favoriteDate').val();
+                let classChange = $('#classChange').val();
+
+                $.ajax({
+                    type: 'put',
+                    url: 'favorite/' + favoritelistid + "?UserID=" + accountId + "&ClassID=" + classid + "&FavoriteDate=" + favoriteDate + "&ClassName=" + classChange + "&ClassPrice=" + classPrice,
+                    contentType: 'application/json',
+                    success: function (data) {
+                        setTimeout(init(), 1000);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            });
+
+
+        });
+    </script>
+    <script>
+        function validateForm() {
+            const selectById = document.getElementById("selectById").value;
+            if (selectById === "") {
+                alert("請輸入查詢內容");
+                return false;
+            }
+            return true;
+        }
+
+        function deleteAlert(favoritelistid) {
+            let deleteFavoritelistid = document.getElementById("deleteFavoritelistid")
+            deleteFavoritelistid.value = favoritelistid
+        }
+
+
+        function updateValue(favoritelistid, userid, classid, classname,
+            classprice, favoritedate) {
+            const favoritelistId = document.getElementById("favoritelistid");
+            const accountId = document.getElementById("accountId");
+            const classID = document.getElementById("classID");
+            const favoriteClass = document.getElementById("favoriteClass");
+            const classPrice = document.getElementById("classPrice");
+            const favoriteDate = document.getElementById("favoriteDate")
+            favoritelistId.value = favoritelistid;
+            accountId.value = userid;
+            classID.value = classid;
+            favoriteClass.value = classname;
+            classPrice.value = classprice;
+            favoriteDate.value = favoritedate;
+        }
+
+        const classID = document.getElementById("classID");
+        const favoriteClass = document.getElementById("favoriteClass");
+        const classChange = document.getElementById("classChange");
+        const classPrice = document.getElementById("classPrice")
+        classChange.addEventListener("change", function () {
+            favoriteClass.value = classChange.value
+            if (classChange.value == "國小英文") {
+                classPrice.value = 400;
+                classID.value = 102;
+            } else if (classChange.value == "國中物理") {
+                classPrice.value = 600;
+                classID.value = 103;
+            } else if (classChange.value == "高中數學") {
+                classPrice.value = 500;
+                classID.value = 101;
+            } else if (classChange.value == "國小國語") {
+                classPrice.value = 450;
+                classID.value = 104;
+            } else {
+                classID.value = "";
+            }
+        })
+
+        const insertFavoriteClass = document
+            .getElementById("insertFavoriteClass");
+        const insertClassChange = document.getElementById("insertClassChange");
+        const insertClassID = document.getElementById("insertClassID");
+        const insertClassPrice = document.getElementById("insertClassPrice");
+        const insertFavoriteDate = document
+            .getElementById("insertFavoriteDate");
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = (today.getMonth() + 1).toString().padStart(2, '0');
+        const day = today.getDate().toString().padStart(2, '0');
+        const date = year + "-" + month + "-" + day;
+        insertFavoriteDate.value = date;
+
+        insertClassChange.addEventListener("change", function () {
+            insertFavoriteClass.value = insertClassChange.value;
+            if (insertClassChange.value == "國小英文") {
+                insertClassPrice.value = 400;
+                insertClassID.value = 102;
+            } else if (insertClassChange.value == "國中物理") {
+                insertClassPrice.value = 600;
+                insertClassID.value = 103;
+            } else if (insertClassChange.value == "高中數學") {
+                insertClassPrice.value = 500;
+                insertClassID.value = 101;
+            } else if (insertClassChange.value == "國小國語") {
+                insertClassPrice.value = 450;
+                insertClassID.value = 104;
+            } else {
+                insertClassID.value = "";
+            }
+        })
+    </script>
+</body>
+
+</html>
