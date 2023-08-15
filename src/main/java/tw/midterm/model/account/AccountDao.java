@@ -53,6 +53,14 @@ public class AccountDao {
 		return lists;
 	}
 	
+	
+	public AccountBean findById(int id){
+		Session session = factory.openSession();
+		AccountBean aBean = session.get(AccountBean.class, id);
+		session.close();
+		return aBean;
+	}
+	
 	public AccountBean update(AccountBean aBean) {
 		Session session = factory.openSession();
 		

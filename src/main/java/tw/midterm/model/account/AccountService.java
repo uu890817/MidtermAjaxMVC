@@ -22,6 +22,10 @@ public class AccountService {
 		return aDao.findAll();
 	}
 	
+	public AccountBean findById(int id){
+		return aDao.findById(id);
+	}
+	
 	public AccountBean update(AccountBean aBean) {
 		return aDao.update(aBean);
 	}

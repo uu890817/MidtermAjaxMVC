@@ -104,6 +104,21 @@ public class AccountController {
 		return null;
 	}
 
+	@GetMapping(path = "/accountManagerGet/{id}")
+	@ResponseBody
+	public AccountBean getOneAccountController(HttpSession session,
+													 @PathVariable int id) {
+		AccountBean sessionBean = (AccountBean) session.getAttribute("loginUser");
+		if (sessionBean == null) {
+			return null;
+		}
+		if(sessionBean.isAdmin()) {
+			return aService.findById(id);
+		 }
+		return null;
+	}
+	
+	
 	@PutMapping(path = "/accountManager")
 	@ResponseBody
 	public String registerController(@RequestBody AccountBean aBean) {
@@ -113,11 +128,21 @@ public class AccountController {
 		return "OK";
 	}
 
-//	@PutMapping(path = "/accountManager")
-//	public List<AccountBean> updatAccountController() {G
-//		
-//		return aService.update();	
-//	}
+	@PutMapping(path = "/accountManager/{id}")
+	@ResponseBody
+	public AccountBean updatAccountController(@PathVariable int id,
+											  @RequestBody AccountBean aBean) {
+		
+		AccountBean dataBean = aService.findById(id);
+		dataBean.setUserName(aBean.getUserName());
+		dataBean.setFamilyName(aBean.getFamilyName());
+		dataBean.setGivenName(aBean.getGivenName());
+		dataBean.setNationality(aBean.getNationality());
+		dataBean.setAdmin(aBean.isAdmin());
+		dataBean.setTeacher(aBean.isTeacher());
+
+		return aService.update(dataBean);
+	}
 
 	@DeleteMapping(path = "/accountManager/{id}")
 	@ResponseBody
