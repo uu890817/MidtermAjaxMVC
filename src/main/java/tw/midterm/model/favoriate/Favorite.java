@@ -1,4 +1,4 @@
-package tw.midterm.model;
+package tw.midterm.model.favoriate;
 
 import org.springframework.stereotype.Component;
 

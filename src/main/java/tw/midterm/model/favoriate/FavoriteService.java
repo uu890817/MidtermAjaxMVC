@@ -1,4 +1,4 @@
-package tw.midterm.model;
+package tw.midterm.model.favoriate;
 
 import java.util.List;
 

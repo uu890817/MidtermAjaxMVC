@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import tw.midterm.model.Favorite;
-import tw.midterm.model.FavoriteService;
+import tw.midterm.model.favoriate.Favorite;
+import tw.midterm.model.favoriate.FavoriteService;
+
 
 @Controller
 public class FavoriteController {
