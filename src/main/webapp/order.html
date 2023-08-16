@@ -277,18 +277,16 @@
                             <input type="text" id="findorderListID"
                                 style="margin: 10px; padding: 7px; font-size: 16px; font-weight: bold;" />
                             <button type="submit" class="search" id="SelectIdbtn">
-                                <img alt="" src="images/icon/imgOrder/magnifier.png"
-                                    style="width: 20px; height: 20px;">
+                                <img alt="" src="images/icon/imgOrder/magnifier.png" style="width: 20px; height: 20px;">
                             </button>
                             <br>
                         </div>
                         <div class="favoriteTableHeader" style="display: flex; justify-content: space-between;">
-                            <button type="submit" class="btn" id="SelectAllBtn"
+                            <button type="submit" class="btn btn-outline-secondary" id="SelectAllBtn"
                                 style="border: 1px solid black;">顯示全部訂單</button>
                         </div>
                         <button onclick="showModal3()" style="border: none; background-color: transparent">
-                            <img alt="" src="images/icon/imgOrder/add.png"
-                                style="width: 40px; height: 40px;">
+                            <img alt="" src="images/icon/imgOrder/add.png" style="width: 40px; height: 40px;">
                         </button>
                     </div>
 
@@ -309,10 +307,11 @@
                         </table>
                     </div>
                 </div>
+                <br>
+                <div id="pagination"></div>
             </div>
         </div>
     </div>
-
     <!-- 互動式修改視窗 -->
     <div class="modal" id="myModal">
         <div class="modal-content" style="width: 400px">
@@ -400,53 +399,82 @@
         integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- 與伺服器傳遞資料用 JS  -->
     <script>
         function findAll() {
-            let str = ''
             $.ajax({
                 type: 'get',
                 url: 'order',
                 contentType: 'application/json',
                 success: function (data) {
-                    console.log(data);
-                    for (let i = 0; i < data.length; i++) {
-                        if (data[i].orderListState == 1) {
-                            data[i].orderListState = '訂單成立';
-                        } else if (data[i].orderListState == 2) {
-                            data[i].orderListState = '代付款';
-                        } else if (data[i].orderListState == 3) {
-                            data[i].orderListState = '訂單已取消';
-                        } else if (data[i].orderListState == 4) {
-                            data[i].orderListState = '退款申請中';
-                        } else if (data[i].orderListState == 5) {
-                            data[i].orderListState = '退款完成';
-                        } else if (data[i].orderListState == 6) {
-                            data[i].orderListState = '訂單已完成';
-                        }
-                        str += `<tr>
-                                <td>${data[i].orderListID}</td>
-                                <td>${data[i].orderFormID}</td>
-                                <td>${data[i].classID}</td>
-                                <td>${data[i].totalPrice}</td>
-                                <td>${data[i].orderListState}</td>
-                                <td><button onclick="showModal(); openUpdateListID('${data[i].orderListID}');openUpdateFormID('${data[i].orderFormID}');openUpdateClassID('${data[i].classID}');openUpdatePrice('${data[i].totalPrice}')" style="border: none">
-										<img src="images/icon/imgOrder/checklist.png" style="width: 20px; height: 20px;">
-									</button>
-                                </td>
-								<td><button onclick="showModal2(); openDeletePopup('${data[i].orderListID}')" style="border: none">
-										<img src="images/icon/imgOrder/delete.png" style="width: 20px; height: 20px;">
-									</button>
-                                </td>
-                                </tr>`
+                    var itemsPerPage = 5; // 每頁顯示的項目數量
+                    var currentPage = 1;   // 目前的頁碼
+                    // 顯示指定頁碼的項目
+                    function displayPage(page) {
+                        var startIndex = (page - 1) * itemsPerPage;
+                        var endIndex = startIndex + itemsPerPage;
+                        var itemsToShow = data.slice(startIndex, endIndex);
+
+                        $('#tablelist').empty();
+                        $.each(itemsToShow, function (index, item) {
+                            if (item.orderListState == 1) {
+                                item.orderListState = '訂單成立';
+                            } else if (item.orderListState == 2) {
+                                item.orderListState = '代付款';
+                            } else if (item.orderListState == 3) {
+                                item.orderListState = '訂單已取消';
+                            } else if (item.orderListState == 4) {
+                                item.orderListState = '退款申請中';
+                            } else if (item.orderListState == 5) {
+                                item.orderListState = '退款完成';
+                            } else if (item.orderListState == 6) {
+                                item.orderListState = '訂單已完成';
+                            }
+                            $('#tablelist').append(`<tr>
+                                    <td>${item.orderListID}</td>
+                                    <td>${item.orderFormID}</td>
+                                    <td>${item.classID}</td>
+                                    <td>${item.totalPrice}</td>
+                                    <td>${item.orderListState}</td>
+                                    <td><button onclick="showModal(); openUpdateListID('${item.orderListID}');openUpdateFormID('${item.orderFormID}');openUpdateClassID('${item.classID}');openUpdatePrice('${item.totalPrice}')" style="border: none">
+                                            <img src="images/icon/imgOrder/checklist.png" style="width: 20px; height: 20px;">
+                                        </button>
+                                    </td>
+                                    <td><button onclick="showModal2(); openDeletePopup('${item.orderListID}')" style="border: none">
+                                            <img src="images/icon/imgOrder/delete.png" style="width: 20px; height: 20px;">
+                                        </button>
+                                    </td>
+                                    </tr>`);
+                        });
+
+                        updatePagination();
                     }
-                    $("#tablelist").html(str)
-                },
+
+                    // 更新分頁按鈕
+                    function updatePagination() {
+                        var totalPages = Math.ceil(data.length / itemsPerPage);
+                        // Math.ceil 為接近的最小整數，例如 3.2 最小整數則是4 ，確保資料除不盡每筆頁數時，餘數的資料可以顯示
+
+                        $('#pagination').empty();
+                        for (var i = 1; i <= totalPages; i++) {
+                            $('#pagination').append('<button class="page-btn btn btn-outline-secondary" data-page="' + i + '">' + i + '</button>');
+                        }
+
+                        $('.page-btn').click(function () {
+                            currentPage = parseInt($(this).attr('data-page'));
+                            displayPage(currentPage);
+                        });
+                    }
+                    // 初始化顯示第一頁的資料，重新
+                    displayPage(currentPage);
+                }
             })
         }
         // 網頁載入，用ready觸發
         $(function () {
             $('#searchAll').ready(findAll)
         })
+        // 新增、刪除、修改、查詢
         $(function () {
             // 查詢全部(完成)
             $('#SelectAllBtn').click(findAll)
@@ -530,7 +558,7 @@
                     url: 'order/insert2',
                     contentType: 'application/json',
                     data: JSON.stringify(obj),
-                    success: window.location.href = 'http://localhost:8080/MidtermAjaxMVC/order.html',
+                    success: setTimeout(window.location.href = 'http://localhost:8080/MidtermAjaxMVC/order.html', 1000)
                 })
                 console.log(obj)
             })
@@ -542,7 +570,7 @@
                 $.ajax({
                     type: 'delete',
                     url: 'order/' + deleteId,
-                    success: window.location.href = 'http://localhost:8080/MidtermAjaxMVC/order.html',
+                    success: setTimeout(window.location.href = 'http://localhost:8080/MidtermAjaxMVC/order.html', 1000)
                 })
             })
 
@@ -568,28 +596,13 @@
                 }
                 $.ajax({
                     type: 'put',
-                    // url: 'order/' + updateId + '?orderliststate=' + updateState,
                     url: 'order/' + updateId + '?orderformid=' + updateFormId + '&classid=' + updateClassId + '&totalprice=' + updatePrice + '&orderliststate=' + updateState,
-                    success: window.location.href = 'http://localhost:8080/MidtermAjaxMVC/order.html',
+                    success: setTimeout(window.location.href = 'http://localhost:8080/MidtermAjaxMVC/order.html', 1000)
                 })
             })
         })
-
-
     </script>
-    <script>
-        // 顯示修改互動視窗
-        function showModal() {
-            const modal = document.getElementById('myModal');
-            modal.style.display = 'block';
-        }
-
-        // 關閉修改互動視窗
-        function hideModal() {
-            const modal = document.getElementById('myModal');
-            modal.style.display = 'none';
-        }
-    </script>
+    <!-- 彈出視窗取值用 JS -->
     <script>
         function openUpdateListID(orderListID) {
             //修改取值用，並寫入對應id的value屬性
@@ -607,14 +620,25 @@
             //修改取值用，並寫入對應id的value屬性
             document.getElementById('orderPriceInput').value = orderPrice;
         }
-    </script>
-    <script>
         function openDeletePopup(orderListID) {
             //刪除取值用，並寫入對應id的value屬性
             document.getElementById('orderListIDDelete').value = orderListID;
         }
     </script>
+    <!-- 彈出視窗 JS -->
     <script>
+        // 顯示修改互動視窗
+        function showModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'block';
+        }
+
+        // 關閉修改互動視窗
+        function hideModal() {
+            const modal = document.getElementById('myModal');
+            modal.style.display = 'none';
+        }
+
         // 顯示刪除互動視窗
         function showModal2() {
             const modal = document.getElementById('myModal2');
@@ -626,8 +650,6 @@
             const modal = document.getElementById('myModal2');
             modal.style.display = 'none';
         }
-    </script>
-    <script>
         // 顯示新增互動視窗
         function showModal3() {
             const modal = document.getElementById('myModal3');
@@ -640,7 +662,6 @@
             modal.style.display = 'none';
         }
     </script>
-
 </body>
 
 </html>
