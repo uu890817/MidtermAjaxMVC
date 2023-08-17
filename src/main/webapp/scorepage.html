@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      body {
+        background-color: rgb(249, 251, 253);
+      }
+
+      .navTutor > ul > li > a,
+      .navTutor > ul > li button {
+        text-decoration: none;
+        color: gray;
+        transition: 0.5s;
+      }
+
+      .navTutor > ul > li > a:hover,
+      .navTutor > ul > li > a:focus,
+      .navTutor > ul > li button:hover,
+      .navTutor > ul > li button:focus {
+        color: black;
+      }
+
+      .navTutor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 13%;
+        background-color: #fff;
+        height: 100vh;
+        justify-items: center;
+        align-items: center;
+        box-shadow: 0 0 10px 15px #f5f3f4;
+      }
+
+      .main {
+        display: flex;
+        margin-left: 13%;
+        width: 87%;
+        background-color: rgb(249, 251, 253);
+        padding: 0 50px;
+      }
+
+      .navTutor > ul > li {
+        text-decoration: none;
+        color: gray;
+        padding: 10px;
+        padding-left: 30px;
+      }
+
+      .iconCard {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        margin: 20px 0;
+      }
+
+      .iconImg {
+        margin: 0 auto;
+        width: 40%;
+      }
+
+      .container {
+        width: 87%;
+        background-color: rgb(249, 251, 253);
+        padding: 0 50px;
+      }
+
+      .container h2 {
+        border-bottom: 1px solid #edede9;
+        padding: 30px 0;
+      }
+
+      .favorite {
+        width: 70%;
+        margin: 0 auto;
+      }
+
+      .favoriteTable {
+        display: block;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 5px 1px #f5f3f4;
+        padding: 5px 0;
+      }
+
+      .favoriteSearch {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .favoriteSearch input,
+      .favoriteSearch button {
+        margin-right: 5px;
+        max-height: 40px;
+      }
+
+      .selectId {
+        display: flex;
+      }
+
+      .favoriteSearch form {
+        margin-left: 10px;
+      }
+
+      .favoriteTableHeader {
+        display: flex;
+        padding: 15px 25px;
+        justify-content: space-between;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .tableHead {
+        background-color: rgb(249, 251, 253);
+      }
+
+      th,
+      td {
+        padding: 15px 25px;
+        text-align: center;
+      }
+
+      tr {
+        border-top: 1px solid #edede9;
+      }
+
+      th:first-child,
+      td:first-child {
+        text-align: left;
+      }
+
+      .closeBtn {
+        width: 25%;
+        background-color: #f07167;
+        color: #fff;
+      }
+
+      .closeBtn:hover {
+        background-color: #e63946;
+        color: #fff;
+      }
+
+      .submitBtn {
+        width: 25%;
+        background: #84a98c;
+        color: #fff;
+      }
+
+      .submitBtn:hover {
+        background-color: #52796f;
+        color: #fff;
+      }
+
+      .btnItem {
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+      }
+
+      .btnCircle {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        background-color: #d6ccc2;
+        color: #fff;
+        font-size: 36px;
+        border: none;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .btnCircle:hover {
+        background-color: #c9ada7;
+      }
+
+      .btnCircle:focus {
+        outline: none;
+      }
+    </style>
+    <title>評分管理</title>
+  </head>
+
+  <body>
+    <div class="navTutor">
+      <div class="iconCard">
+        <div class="iconImg">
+          <img
+            src="https://raw.githubusercontent.com/uu890817/TutorLink/e85cd3edeba7a6198276171af9e994154cb89ba0/assets/images/logo/TutorLinkLogo.svg"
+            alt=""
+          />
+        </div>
+      </div>
+      <ul>
+        <li>
+          <a href="#"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-person"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"
+              />
+            </svg>
+            使用者管理</a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-journals"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M5 0h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2 2 2 0 0 1-2 2H3a2 2 0 0 1-2-2h1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1H1a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v9a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1H3a2 2 0 0 1 2-2z"
+              />
+              <path
+                d="M1 6v-.5a.5.5 0 0 1 1 0V6h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V9h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 2.5v.5H.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1H2v-.5a.5.5 0 0 0-1 0z"
+              />
+            </svg>
+            課程管理</a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-file-earmark-text"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+              />
+              <path
+                d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"
+              />
+            </svg>
+            訂單管理</a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-emoji-frown"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+              />
+              <path
+                d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"
+              />
+            </svg>
+            檢舉案件管理</a
+          >
+        </li>
+        <li>
+          <a href="#" style="color: #212529"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-heart"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+              />
+            </svg>
+            收藏管理</a
+          >
+        </li>
+        <li>
+          <a href="#"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-star"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"
+              />
+            </svg>
+            評分管理</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="main">
+      <div class="container">
+        <div class="favorite">
+          <h2>評論管理</h2>
+          <div class="ScoreTable">
+            <div class="addButton" style="margin: 20px 0px">
+              <button
+                class=""
+                data-bs-toggle="modal"
+                data-bs-target="#insertModal"
+              >
+                新增評論
+              </button>
+              <!-- <button id="SelectAllScoreBtn">顯示全部</button> -->
+            </div>
+            <div class="scoreTableHeader">
+              <h3>評論列表</h3>
+            </div>
+            <div class="scoreTableCon">
+              <table>
+                <thead>
+                  <tr class="tableHead">
+                    <th>明細編號</th>
+                    <th>訂單編號</th>
+                    <th>課程編號</th>
+                    <th>評分</th>
+                    <th>評論</th>
+                    <th>評價時間</th>
+                    <th>修改</th>
+                    <th>刪除</th>
+                    <!-- <th>查看內容</th> -->
+                  </tr>
+                </thead>
+                <tbody id="tableList"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 刪除視窗 -->
+    <div
+      class="modal fade"
+      id="deleteModat"
+      tabindex="-1"
+      aria-labelledby="confirmDeleteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmDeleteModalLabel">刪除確認</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form>
+            <div class="modal-body">確定要刪除該筆資料？</div>
+            <input
+              type="text"
+              class="form-control"
+              id="deleteScorelistid"
+              name="scorelistid"
+              hidden="hidden"
+            />
+            <div class="modal-footer btnItem">
+              <button type="submit" class="btn btn-danger" id="deletOk">
+                確定
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                取消
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 彈出更新視窗內容 -->
+    <div
+      class="modal fade"
+      id="updateModal"
+      data-bs-backdrop="static"
+      tabindex="-1"
+      aria-labelledby="updateScoreList"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="updateScoreList">修改評分</h3>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="orderlistid" class="col-form-label"
+                  >訂單明細編號</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="orderlistid"
+                  name="orderlistid"
+                  readonly
+                />
+              </div>
+              <div class="mb-3">
+                <label for="orderformid" class="col-form-label">訂單編號</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="orderformid"
+                  name="orderformid"
+                  readonly
+                />
+              </div>
+              <div class="mb-3">
+                <label for="orderformid" class="col-form-label">課程編號</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="classid"
+                  name="classid"
+                  readonly
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="reviewScore" class="col-form-label">評分</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="reviewScore"
+                  name="reviewScore"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="reviewContent" class="col-form-label">評論</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="reviewContent"
+                  name="reviewContent"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="reviewDate" class="col-form-label">評分時間</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="reviewDate"
+                  name="reviewDate"
+                  readonly
+                />
+              </div>
+              <div class="modal-footer btnItem">
+                <button type="submit" class="btn submitBtn" id="updateBtn">
+                  送出
+                </button>
+                <button
+                  type="button"
+                  class="btn closeBtn"
+                  data-bs-dismiss="modal"
+                >
+                  關閉
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 新增按鈕 -->
+
+    <!-- 彈出新增視窗內容 -->
+    <div
+      class="modal fade"
+      id="insertModal"
+      data-bs-backdrop="static"
+      tabindex="-1"
+      aria-labelledby="insertScoreList"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="insertScoreList">新增評分</h3>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <!-- <div class="mb-3">
+                <label for="insertOrderListID" class="col-form-label"
+                  >訂單明細編號</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="insertOrderListID"
+                  name="orderlistid"
+                />
+              </div> -->
+              <div class="mb-3">
+                <label for="OrderFormID" class="col-form-label">訂單編號</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="insertOrderFormID"
+                  name="OrderFromID"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="classid" class="col-form-label">課程編號</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="insertClassID"
+                  name="classid"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="reviewScore" class="col-form-label">評分</label>
+                <select
+                  class="form-control"
+                  id="insertStudentReviewScore"
+                  name="reviewScore"
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="reviewcontent" class="col-form-label">評論</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="insertStudentReviewContent"
+                  name="reviewcontent"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="reviewsore" class="col-form-label">評分時間</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="insertStudentReviewDate"
+                  name="reviewsore"
+                />
+              </div>
+              <div class="modal-footer btnItem">
+                <button type="submit" class="btn submitBtn" id="insertBtn">
+                  送出
+                </button>
+                <button
+                  type="button"
+                  class="btn closeBtn"
+                  data-bs-dismiss="modal"
+                >
+                  關閉
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <script>
+      var reviewModal = new bootstrap.Modal(
+        document.getElementById("reviewModal")
+      );
+      var reviewContentElement = document.getElementById("reviewContent");
+      var reviewScoreElement = document.getElementById("reviewScore");
+
+      function showReviewModal(content, score) {
+        reviewContentElement.innerText = content;
+        reviewScoreElement.innerText = "評分: " + score;
+        reviewModal.show();
+      }
+
+      // 在 DOM 載入完畢後，綁定按鈕點擊事件
+      document.addEventListener("DOMContentLoaded", function () {
+        var buttons = document.querySelectorAll(".custom-button");
+        buttons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            var reviewContent = button.getAttribute("data-review-content");
+            var reviewScore = button.getAttribute("data-review-score");
+            showReviewModal(reviewContent, reviewScore);
+          });
+        });
+      });
+    </script> -->
+
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(function () {
+        // 在页面加载时设置当前日期为输入框的值
+        let currentDate = new Date();
+        let formattedDate = currentDate.toISOString().split("T")[0];
+        $("#insertStudentReviewDate").val(formattedDate);
+
+        // ... 其他初始化和事件处理代码 ...
+      });
+    </script>
+    <script>
+      function updateValue(
+        orderlistid,
+        orderformid,
+        classid,
+        studentreviewscore,
+        studentreviewcontent,
+        studentreviewdate
+      ) {
+        // 将传递的值设置到相应的输入框中
+        $("#orderlistid").val(orderlistid);
+        $("#orderformid").val(orderformid);
+        $("#classid").val(classid);
+        $("#reviewScore").val(studentreviewscore);
+        $("#reviewContent").val(studentreviewcontent);
+        $("#reviewDate").val(studentreviewdate);
+
+        // 打开修改模态框
+        $("#updateModal").modal("show");
+      }
+    </script>
+    <script>
+      function deleteAlert(orderlistid) {
+        $("#deleteScorelistid").val(orderlistid);
+        $("#deleteModat").modal("show");
+      }
+    </script>
+    <script>
+      $(function () {
+        init();
+        function init() {
+          let str = "";
+          $.ajax({
+            type: "get",
+            url: "score",
+            contentType: "application/json",
+            success: function (data) {
+              console.log(data);
+              for (let i = 0; i < data.length; i++) {
+                str += `<tr>
+                            <td>${data[i].orderlistid}</td>
+                            <td>${data[i].orderformid}</td>
+                            <td>${data[i].classid}</td>
+                            <td>${data[i].studentreviewsore}</td>
+										        <td>${data[i].studentreviewcontent}</td>
+										        <td>${data[i].studentreviewdate}</td>
+                            <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#updateModal"><img src="images/icon/pencil-square.svg"
+                                                    alt="" onclick="updateValue(${data[i].orderlistid},${data[i].orderformid}, ${data[i].classid}, ${data[i].studentreviewsore},
+                                                    '${data[i].studentreviewcontent}', '${data[i].studentreviewdate}')"></a>
+                            </td>
+                            <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModat"><img src="images/icon/x-lg.svg" alt="" onclick="deleteAlert(${data[i].orderlistid})"></a>
+                            </td>
+                         </tr>`;
+              }
+              $("#tableList").html(str);
+            },
+          });
+        }
+
+        $("#SelectAllScoreBtn").click(function () {
+          let str = "";
+          $.ajax({
+            type: "get",
+            url: "score",
+            contentType: "application/json",
+            success: function (data) {
+              console.log(data);
+              for (let i = 0; i < data.length; i++) {
+                let fullDate = new Date(data[i].studentreviewdate);
+                let formattedDate = fullDate.toLocaleDateString();
+                str += `<tr>
+                            <td>${data[i].orderlistid}</td>
+                            <td>${data[i].orderformid}</td>
+                            <td>${data[i].classid}</td>
+                            <td>${data[i].studentreviewsore}</td>
+										        <td>${data[i].studentreviewcontent}</td>
+										        <td>${formattedDate}</td>
+                            <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#updateModal"><img src="images/pencil-square.svg"
+                                                    alt="" onclick="updateValue(${data[i].orderlistid},${data[i].orderformid}, ${data[i].classid}, '${data[i].studentreviewsore}',
+                                                    ${data[i].studentreviewcontent}, '${data[i].studentreviewdate}')"></a>
+                            </td>
+                            <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModat"><img src="images/x-lg.svg" alt="" onclick="deleteAlert(${data[i].orderlistid})"></a>
+                            </td>
+                         </tr>`;
+              }
+              $("#tableList").html(str);
+            },
+          });
+        });
+        $("#selectByIdBtn").click(function () {
+          let selectReult = $("#selectById").val();
+          let str = "";
+          $.ajax({
+            type: "get",
+            url: "score/" + selectReult,
+            contentType: "application/json",
+            success: function (data) {
+              for (let i = 0; i < data.length; i++) {
+                str += `<tr>
+                                        <td>${data[i].userid}</td>
+                                        <td>${data[i].classname}</td>
+                                        <td>${data[i].classprice}</td>
+                                        <td>${data[i].favoritedate}</td>
+                                        <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#updateModal"><img src="images/pencil-square.svg"
+                                                    alt="" onclick="updateValue(${data[i].favoritelistid},${data[i].userid}, ${data[i].classid}, '${data[i].classname}',
+                                                    ${data[i].classprice}, '${data[i].favoritedate}')"></a>
+                                        </td>
+                                        <td><a href="#" class="popup-button" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModat"><img src="images/x-lg.svg" alt="" onclick="deleteAlert(${data[i].favoritelistid})"></a>
+                                        </td>
+                                    </tr>`;
+              }
+              $("#tableList").html(str);
+            },
+          });
+        });
+
+        $("#deletOk").click(function () {
+          let deleteResult = $("#deleteScorelistid").val();
+          $.ajax({
+            type: "delete",
+            url: "score/" + deleteResult,
+            contentType: "application/json",
+            success: function (data) {
+              setTimeout(init, 1000);
+            },
+            error: function (e) {
+              console.log(e);
+            },
+          });
+        });
+
+        $("#insertBtn").click(function () {
+          // let insertOrderListID = $("#insertOrderListID").val();
+          let insertOrderFormID = $("#insertOrderFormID").val();
+          let insertClassID = $("#insertClassID").val();
+          let insertStudentReviewScore = $("#insertStudentReviewScore").val();
+          let insertStudentReviewContent = $(
+            "#insertStudentReviewContent"
+          ).val();
+          let insertStudentReviewDate = $("#insertStudentReviewDate").val();
+          let obj = {
+            // orderlistid: insertOrderListID,
+            orderformid: insertOrderFormID,
+            classid: insertClassID,
+            studentreviewsore: insertStudentReviewScore,
+            studentreviewcontent: insertStudentReviewContent,
+            studentreviewdate: insertStudentReviewDate,
+          };
+          console.log(obj);
+          $.ajax({
+            type: "post",
+            url: "score",
+            contentType: "application/json",
+            data: JSON.stringify(obj),
+            success: function (data) {
+              setTimeout(init(), 1000);
+            },
+            error: function (e) {
+              console.log(e);
+            },
+          });
+        });
+
+        $("#updateBtn").click(function () {
+          let OrderListID = $("#orderlistid").val();
+          let OrderFormID = $("#orderformid").val();
+          let ClassID = $("#classid").val();
+          let StudentReviewScore = $("#reviewScore").val();
+          let StudentReviewContent = $("#reviewContent").val();
+          // let StudentReviewDate = $("#reviewDate").val();
+          let currentDate = new Date();
+          let formattedDate = currentDate.toISOString().split("T")[0];
+
+          $.ajax({
+            type: "put",
+            url:
+              "score/" +
+              OrderListID +
+              "?ofid=" +
+              OrderFormID +
+              "&classid=" +
+              ClassID +
+              "&reviewsore=" +
+              StudentReviewScore +
+              "&reviewcontent=" +
+              StudentReviewContent +
+              "&reviewdate=" +
+              formattedDate,
+            contentType: "application/json",
+            success: function (data) {
+              setTimeout(init(), 1000);
+            },
+            error: function (e) {
+              console.log(e);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
